@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-navbar>
+  <button ion-button menuToggle>
+  <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>
+  Home
+  </ion-title>
+ </ion-navbar>
+ 136
+ </ion-header>
+ <ion-content padding>
+ <ion-searchbar (ionInput)="filterProducts($event)"
+ [(ngModel)]="searchText"></ion-searchbar>
+ <ion-list>
+  <ion-item-sliding *ngFor="let product of products">
+  <button ion-item (click)="editProduct(product.id)">
+  <h1>{{ product.name }}</h1>
+  <h2>{{ product.category_name }}</h2>
+  <h2>{{ product.duedate | date:'dd/MM/yyyy' }}</h2>
+  <h2 class="price">{{ product.price |
+ currency:'USD':true }}</h2>
+  </button>
+  <ion-item-options side="right">
+  <button ion-button color="secondary"
+ (click)="addToFavorite(product)">
+  <ion-icon name="heart"></ion-icon>
+  Favorite
+  </button>
+  <button ion-button color="danger"
+ (click)="removeProduct(product)">
+  <ion-icon name="trash"></ion-icon>
+  Delete
+  </button>
+  </ion-item-options>
+  </ion-item-sliding>
+ </ion-list>
+ <ion-fab right bottom>
+  <button ion-fab color="light" (click)="addProduct()">
+  <ion-icon name="add"></ion-icon>
+  </button>
+ </ion-fab>
+ </ion-content>
+ <ion-footer>
+  <ion-toolbar [color]="isAndroid ? 'royal' : 'light'"
+ class="page-home">
+  <ion-list>
+  <ion-item no-lines>
+  <ion-label class="footer-left">Total :
+ {{products.length}}</ion-label>
+  <ion-label class="footer-right" item-end>Login as :
+ <b>{{userAccount.username}}</b></ion-label>
+  </ion-item>
+  <ion-item no-lines>
+  <ion-label>List inactives</ion-label>
+  <ion-toggle name="listactives"
+ [(ngModel)]="onlyInactives"
+ (ionChange)="getAllProducts()"></ion-toggle>
+  </ion-item>
+  </ion-list>
+  </ion-toolbar>
+ </ion-footer>
